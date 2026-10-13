@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARDEX - Ishingiz bor. Ishchi kerak. Mardex bor.</title>
+  <style>
+    /* CSS Variables for Premium Stripe/Linear Minimalism */
+    :root {
+      --bg-color: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --primary-text: #111111;
+      --secondary-text: #666666;
+      --accent: #C8A165;
+      --accent-hover: #B59055;
+      --border: #EAEAEA;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.12);
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Reset & Typography */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--primary-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; }
+    h1, h2, h3, h4 { color: var(--primary-text); font-weight: 700; letter-spacing: -0.03em; }
+    a { text-decoration: none; color: inherit; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section h2 { font-size: 32px; margin-bottom: 40px; text-align: center; }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* Buttons */
+    .btn {
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      font-size: 15px;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { 
+      background: linear-gradient(180deg, var(--accent) 0%, #b59055 100%); 
+      color: #fff; 
+      box-shadow: 0 2px 4px rgba(200, 161, 101, 0.2);
+    }
+    .btn-primary:hover:not(:disabled) { 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(200, 161, 101, 0.3);
+    }
+    .btn-outline { background-color: var(--card-bg); border-color: var(--border); color: var(--primary-text); }
+    .btn-outline:hover:not(:disabled) { border-color: #d0d0d0; background-color: #fafafa; }
+    .w-full { width: 100%; }
+
+    /* Forms */
+    input, select, textarea {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      width: 100%;
+      margin-bottom: 20px;
+      transition: all 0.2s;
+      background-color: #fafafa;
+      font-family: inherit;
+      color: var(--primary-text);
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      background-color: var(--card-bg);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(200, 161, 101, 0.15);
+    }
+    label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--primary-text); }
+    .split { display: flex; gap: 16px; }
+    .split > div { flex: 1; }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 32px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #e0e0e0; }
+
+    /* Header (Glassmorphism) */
+    .header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+    .logo { font-size: 26px; font-weight: 900; letter-spacing: -0.05em; cursor: pointer; color: var(--primary-text); display: flex; align-items: center; gap: 8px;}
+    .logo::before { content: ''; display: block; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--secondary-text); font-weight: 500; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary-text); }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    
+    #lang-select { padding: 8px 12px; margin-bottom: 0; border-radius: 8px; width: auto; font-weight: 600; cursor: pointer; border: none; background: transparent; }
+    #lang-select:hover { background: #f0f0f0; }
+
+    .hamburger { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--primary-text); padding: 8px; }
+
+    @media(max-width: 850px) {
+      .nav-links, .nav-actions .btn:not(.btn-primary) { display: none; }
+      .hamburger { display: block; }
+    }
+    .mobile-menu {
+      position: fixed; top: 80px; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); z-index: 90; padding: 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      overflow-y: auto; border-top: 1px solid var(--border);
+    }
+    .mobile-menu a { font-size: 20px; color: var(--primary-text); font-weight: 600; padding: 12px 0; border-bottom: 1px solid var(--border); }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+      background: radial-gradient(circle at top, #ffffff 0%, #f8f9fa 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero h1 { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 24px; line-height: 1.1; color: #000; }
+    .hero p { font-size: 20px; color: var(--secondary-text); max-width: 650px; margin: 0 auto 40px auto; line-height: 1.6; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+    
+    .search-box { 
+      display: flex; gap: 12px; max-width: 900px; margin: 0 auto; 
+      padding: 12px; align-items: center; flex-wrap: wrap; 
+      background: #fff; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border);
+    }
+    .search-box input, .search-box select { margin-bottom: 0; flex: 1; min-width: 180px; border: none; background: transparent; box-shadow: none; font-size: 16px; }
+    .search-box input:focus, .search-box select:focus { box-shadow: none; border: none; background: #f9f9f9; border-radius: 12px; }
+    .search-box .divider { width: 1px; height: 32px; background: var(--border); }
+    .search-box button { min-width: 140px; height: 52px; border-radius: 14px; font-size: 16px; }
+    
+    @media(max-width: 768px) {
+      .hero h1 { font-size: 40px; }
+      .search-box { flex-direction: column; width: 100%; border-radius: 16px; background: transparent; box-shadow: none; border: none; padding: 0; }
+      .search-box input, .search-box select { width: 100%; margin-bottom: 12px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 16px; border-radius: 12px; }
+      .search-box .divider { display: none; }
+      .search-box button { width: 100%; margin-bottom: 0; }
+    }
+
+    /* Grids */
+    .services-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .workers-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .steps-grid { display: grid; gap: 32px; grid-template-columns: repeat(3, 1fr); }
+    @media(max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } }
+
+    .service-card { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border-radius: var(--radius-lg); }
+    .service-card:hover { border-color: var(--accent); }
+    .service-icon { width: 64px; height: 64px; background: #Fdf8f2; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 20px; }
+    .service-card h3 { margin: 0; font-size: 18px; font-weight: 700; }
+
+    /* Worker Cards */
+    .worker-card { padding: 24px; position: relative; overflow: hidden; }
+    .demo-badge { position: absolute; top: 16px; right: 16px; background: #F1F3F5; color: #555; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .worker-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .worker-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .worker-info h3 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 6px; }
+    .worker-info p { margin: 4px 0 0 0; color: var(--secondary-text); font-size: 14px; font-weight: 500; }
+    .worker-stats { background: #fcfcfc; border-radius: 12px; padding: 16px; margin-bottom: 20px; font-size: 14px; border: 1px solid var(--border); }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .stat-row:last-child { margin-bottom: 0; }
+    .stat-label { color: var(--secondary-text); }
+    .stat-value { font-weight: 600; color: var(--primary-text); }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4); z-index: 200; backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 1; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.hidden { opacity: 0; pointer-events: none; }
+    .modal {
+      background: var(--card-bg); width: 100%; max-width: 540px;
+      max-height: 90vh; overflow-y: auto;
+      border-radius: var(--radius-lg); z-index: 210;
+      box-shadow: var(--shadow-lg); padding: 32px;
+      position: relative; transform: translateY(0) scale(1); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.hidden .modal { transform: translateY(20px) scale(0.95); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .modal-header h2 { margin: 0; font-size: 24px; letter-spacing: -0.02em; }
+    .close-btn { background: #f0f0f0; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 20px; cursor: pointer; color: var(--secondary-text); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .close-btn:hover { background: #e0e0e0; color: var(--primary-text); }
+    
+    /* Toggle Switch */
+    .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #e0e0e0; transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    input:checked + .slider { background-color: #10B981; }
+    input:checked + .slider:before { transform: translateX(22px); }
+
+    /* Floating Prototype Disclamer */
+    .prototype-banner {
+      position: fixed; bottom: 24px; right: 24px; background: #111; color: #fff;
+      padding: 16px 24px; border-radius: 16px; box-shadow: var(--shadow-lg);
+      z-index: 1000; display: flex; align-items: center; gap: 16px; font-size: 14px;
+      backdrop-filter: blur(10px); background: rgba(17, 17, 17, 0.9);
+    }
+    .prototype-banner button {
+      background: #333; border: 1px solid #444; color: #fff; padding: 8px 16px;
+      border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;
+    }
+    .prototype-banner button:hover { background: #444; border-color: #666; }
+
+    /* Utilities */
+    .view { display: none; opacity: 0; }
+    .view.active { display: block; opacity: 1; animation: fadeUp 0.4s ease forwards; }
+    .hidden { display: none !important; }
+    
+    .status-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .status-pending { background: #FEF3C7; color: #D97706; }
+    .status-accepted { background: #DBEAFE; color: #2563EB; }
+    .status-ontheway { background: #E0E7FF; color: #4338CA; }
+    .status-inprogress { background: #F3E8FF; color: #6D28D9; }
+    .status-done { background: #D1FAE5; color: #059669; }
+    .status-cancelled { background: #FEE2E2; color: #DC2626; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo" onclick="navigate(event, 'home')">MARDEX</a>
+      <div class="nav-links">
+        <a href="#" onclick="navigate(event, 'home')" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="#" onclick="navigate(event, 'home')" data-i18n="nav_how">Qanday ishlaydi</a>
+        <a href="#" onclick="navigate(event, 'workers')" data-i18n="nav_workers">Ishchilar portfoliosi</a>
+      </div>
+      <div class="nav-actions">
+        <select id="lang-select" onchange="changeLang(this.value)">
+          <option value="uz">UZ</option>
+          <option value="ru">RU</option>
+          <option value="en">EN</option>
+        </select>
+        <button id="btn-login" class="btn btn-outline" onclick="openLogin()" data-i18n="nav_login">Tizimga kirish</button>
+        <button id="btn-dash" class="btn btn-outline hidden" onclick="openDash()" data-i18n="nav_dash">Mening kabinetim</button>
+        <button id="btn-logout" class="btn btn-outline hidden" style="border:none; color:var(--secondary-text);" onclick="logout()" data-i18n="nav_logout">Chiqish</button>
+        <button class="btn btn-primary" onclick="openBooking()" data-i18n="cta_call">Ishchi chaqirish</button>
+        <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <div class="logo">MARDEX</div>
+      <button class="close-btn" onclick="toggleMobileMenu()">&times;</button>
+    </div>
+    <a href="#" onclick="navigate(event, 'home'); toggleMobileMenu()" data-i18n="nav_home">Bosh sahifa</a>
+    <a href="#" onclick="navigate(event, 'workers'); toggleMobileMenu()" data-i18n="nav_workers">Ishchilar portfoliosi</a>
+    <a href="#" onclick="navigate(event, 'home'); toggleMobileMenu()" data-i18n="nav_how">Qanday ishlaydi</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:12px;">
+      <button id="mob-btn-login" class="btn btn-outline w-full" onclick="openLogin(); toggleMobileMenu()" data-i18n="nav_login">Tizimga kirish</button>
+      <button id="mob-btn-dash" class="btn btn-outline w-full hidden" onclick="openDash(); toggleMobileMenu()" data-i18n="nav_dash">Mening kabinetim</button>
+      <button id="mob-btn-logout" class="btn btn-outline w-full hidden" onclick="logout(); toggleMobileMenu()" data-i18n="nav_logout">Chiqish</button>
+      <button class="btn btn-primary w-full" onclick="openBooking(); toggleMobileMenu()" data-i18n="cta_call">Ishchi chaqirish</button>
+    </div>
+  </div>
+
+  <main id="app">
+    <!-- View: Home -->
+    <section id="view-home" class="view active">
+      <div class="hero">
+        <div class="container animate-up">
+          <h1 data-i18n="hero_title">Ishingiz bor. Ishchi kerak. Mardex bor.</h1>
+          <p data-i18n="hero_desc">Kunlik mardikorlar va malakali ustalarni uyingizga bir necha bosishda chaqiring.</p>
+          <div class="hero-actions delay-1">
+            <button class="btn btn-primary" style="height:52px; font-size:16px; padding: 0 32px;" onclick="openBooking()" data-i18n="cta_call">Ishchi chaqirish</button>
+            <button class="btn btn-outline" style="height:52px; font-size:16px; padding: 0 32px; background:#fff;" onclick="navigate(event, 'workers')" data-i18n="cta_work">Ishchilarni ko'rish</button>
+          </div>
+          
+          <div class="search-box animate-up delay-2">
+            <input type="text" id="search-name" data-i18n="search_placeholder" placeholder="Ishchi ismi yoki xizmat..." onkeypress="if(event.key==='Enter') doSearch()">
+            <div class="divider"></div>
+            <select id="search-cat"></select>
+            <div class="divider"></div>
+            <select id="search-dist"></select>
+            <button class="btn btn-primary" onclick="doSearch()" data-i18n="search_btn">Qidirish</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container section">
+        <h2 data-i18n="services_title" class="animate-up">Mashhur xizmatlar</h2>
+        <div class="services-grid animate-up delay-1" id="services-grid"></div>
+      </div>
+      
+      <div class="container section" style="background:#fff; border-radius:32px; padding:80px 40px; margin-bottom:80px; box-shadow:var(--shadow-sm); border:1px solid var(--border);">
+        <h2 data-i18n="how_it_works">Mardex qanday ishlaydi?</h2>
+        <div class="steps-grid">
+          <div class="card" style="text-align:center; border:none; box-shadow:none; padding:16px;">
+            <div style="width:64px; height:64px; background:var(--bg-color); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; color:var(--accent); margin:0 auto 24px auto;">1</div>
+            <h3 data-i18n="step1_title" style="margin-bottom:12px;">Ishchini tanlang</h3>
+            <p data-i18n="step1_desc" style="color:var(--secondary-text); font-size:15px;">Kerakli xizmat turini va tumanni tanlab, reytingi baland ishchini toping.</p>
+          </div>
+          <div class="card" style="text-align:center; border:none; box-shadow:none; padding:16px;">
+            <div style="width:64px; height:64px; background:var(--bg-color); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; color:var(--accent); margin:0 auto 24px auto;">2</div>
+            <h3 data-i18n="step2_title" style="margin-bottom:12px;">Buyurtma bering</h3>
+            <p data-i18n="step2_desc" style="color:var(--secondary-text); font-size:15px;">Vaqt, manzil va ish tafsilotlarini kiritib, tasdiqlash uchun yuboring.</p>
+          </div>
+          <div class="card" style="text-align:center; border:none; box-shadow:none; padding:16px;">
+            <div style="width:64px; height:64px; background:var(--bg-color); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; color:var(--accent); margin:0 auto 24px auto;">3</div>
+            <h3 data-i18n="step3_title" style="margin-bottom:12px;">Ish qabul qilinadi</h3>
+            <p data-i18n="step3_desc" style="color:var(--secondary-text); font-size:15px;">Ishchi buyurtmani tasdiqlaydi va belgilangan vaqtda yetib keladi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- View: Workers -->
+    <section id="view-workers" class="view">
+      <div class="container section">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; flex-wrap:wrap; gap:20px;">
+          <h2 data-i18n="nav_workers" style="margin:0; text-align:left;">Ishchilar portfoliosi</h2>
+        </div>
+        
+        <div class="card" style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:40px; border-radius:20px; padding:24px;">
+          <div style="flex:1; min-width:200px;">
+            <label data-i18n="filter_name_label">Qidiruv</label>
+            <input type="text" id="filter-name" oninput="applyFilters()" onkeypress="if(event.key==='Enter') applyFilters()" data-i18n="search_placeholder" placeholder="Ishchi ismi yoki xizmat..." style="margin-bottom:0;">
+          </div>
+          <div style="flex:1; min-width:180px;">
+            <label data-i18n="filter_cat_label">Kategoriya</label>
+            <select id="filter-cat" onchange="applyFilters()" style="margin-bottom:0;"></select>
+          </div>
+          <div style="flex:1; min-width:180px;">
+            <label data-i18n="filter_dist_label">Tuman</label>
+            <select id="filter-dist" onchange="applyFilters()" style="margin-bottom:0;"></select>
+          </div>
+          <div style="flex:1; min-width:180px; display:flex; flex-direction:column; justify-content:flex-end;">
+            <div style="display:flex; align-items:center; justify-content:space-between; height:50px; gap:16px;">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin:0;">
+                <input type="checkbox" id="filter-avail" onchange="applyFilters()" style="margin:0; width:18px; height:18px;"> 
+                <span data-i18n="filter_avail" style="font-weight:500;">Faqat bo'shlar</span>
+              </label>
+              <button class="btn btn-outline" onclick="clearFilters()" data-i18n="clear_filters" style="height:50px; margin:0; padding:0 16px;">Tozalash</button>
+            </div>
+          </div>
+        </div>
+        <div class="workers-grid" id="all-workers-grid"></div>
+      </div>
+    </section>
+    
+    <!-- View: Customer Dashboard -->
+    <section id="view-customer-dash" class="view">
+      <div class="container section">
+        <h2 data-i18n="dash_cust_title" style="text-align:left;">Mijoz Kabineti</h2>
+        
+        <div class="card" style="margin-bottom:40px; border-left:4px solid var(--accent); display:flex; align-items:center; gap:20px;">
+          <div style="width:64px; height:64px; background:#f0f0f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;">👤</div>
+          <div>
+            <h3 data-i18n="cust_name_demo" style="margin:0 0 4px 0;">Sardor (Investor Demo)</h3>
+            <p style="color:var(--secondary-text); margin:0;">+998 90 123 45 67</p>
+          </div>
+        </div>
+        
+        <h3 data-i18n="dash_my_bookings" style="margin-bottom:24px;">Mening buyurtmalarim</h3>
+        <div id="customer-bookings-list" style="display:flex; flex-direction:column; gap:20px;"></div>
+      </div>
+    </section>
+
+    <!-- View: Worker Dashboard -->
+    <section id="view-worker-dash" class="view">
+      <div class="container section">
+        <h2 data-i18n="dash_work_title" style="text-align:left;">Ishchi Kabineti (Demo)</h2>
+        
+        <div class="card" style="margin-bottom:40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; border-left:4px solid #10B981;">
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?auto=format&fit=crop&q=80&w=150&h=150" alt="Avatar" style="width:64px; height:64px; border-radius:50%; object-fit:cover;">
+            <div>
+              <h3 data-i18n="worker_name_demo" style="margin:0 0 4px 0;">Alisher T. (Demo)</h3>
+              <p data-i18n="cat_labor" style="color:var(--secondary-text); margin:0;">Kunlik mardikor</p>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; background:#f9f9f9; padding:12px 24px; border-radius:16px; border:1px solid var(--border);">
+            <span id="worker-status-text" style="font-weight:600; font-size:15px;">Bo'sh</span>
+            <label class="switch">
+              <input type="checkbox" id="worker-avail-toggle" onchange="toggleWorkerAvailability(this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <h3 data-i18n="dash_incoming" style="margin-bottom:24px;">Kelib tushgan buyurtmalar</h3>
+        <div id="worker-bookings-list" style="display:flex; flex-direction:column; gap:20px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:#111; color:#fff; padding:80px 0 40px; margin-top:40px;">
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px;">
+      <div style="flex:1; min-width:300px;">
+        <h2 style="color:#fff; margin:0 0 20px 0; font-size:24px; font-weight:900; letter-spacing:-0.05em; display:flex; align-items:center; gap:8px;">
+          <span style="display:block; width:12px; height:12px; background:var(--accent); border-radius:50%;"></span> MARDEX
+        </h2>
+        <p style="color:#888; font-size:15px; max-width:320px; line-height:1.6;">
+          <span data-i18n="hero_title" style="display:block; margin-bottom:12px; color:#aaa;">Ishingiz bor. Ishchi kerak. Mardex bor.</span>
+          <span data-i18n="footer_rights">Barcha huquqlar himoyalangan. © 2026</span>
+        </p>
+      </div>
+      <div>
+        <h3 style="font-size:16px; margin:0 0 20px 0; color:#fff;" data-i18n="footer_links">Platforma</h3>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="#" style="color:#888; text-decoration:none; font-size:15px; transition:color 0.2s;" onclick="navigate(event, 'home')" data-i18n="nav_home">Bosh sahifa</a>
+          <a href="#" style="color:#888; text-decoration:none; font-size:15px; transition:color 0.2s;" onclick="navigate(event, 'workers')" data-i18n="nav_workers">Ishchilar portfoliosi</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:16px; margin:0 0 20px 0; color:#fff;" data-i18n="footer_contact">Aloqa (Demo)</h3>
+        <p style="color:#888; font-size:15px; margin:0 0 12px 0; display:flex; align-items:center; gap:8px;">📞 +998 71 000 00 00</p>
+        <p style="color:#888; font-size:15px; margin:0 0 12px 0; display:flex; align-items:center; gap:8px;">📍 Toshkent shahri</p>
+        <div style="margin-top:24px; padding:12px 16px; background:rgba(255,255,255,0.05); border-radius:12px; border:1px solid rgba(255,255,255,0.1); max-width:280px;">
+          <p style="color:#aaa; font-size:13px; margin:0; line-height:1.5;" data-i18n="footer_desc">Diqqat: Ushbu loyiha investorlar uchun interaktiv demo prototip hisoblanadi. Ma'lumotlar saqlanmaydi.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fixed Prototype Banner -->
+  <div class="prototype-banner">
+    <div>
+      <strong style="display:block; margin-bottom:2px; color:var(--accent);">MARDEX Investor Demo</strong>
+      <span style="color:#aaa;">Frontend prototype via localStorage</span>
+    </div>
+    <button onclick="resetDemo()">Reset Demo</button>
+  </div>
+
+  <!-- Modals Overlay -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeAllModals()">
+    
+    <!-- Login Modal -->
+    <div id="modal-login" class="modal hidden" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 data-i18n="login_title">Tizimga kirish (Demo)</h2>
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--secondary-text); margin-bottom:24px; font-size:15px;" data-i18n="login_sim">Qaysi foydalanuvchi sifatida davom etishni xohlaysiz?</p>
+        
+        <button class="card w-full" style="display:flex; align-items:center; gap:16px; margin-bottom:16px; cursor:pointer; text-align:left; border:1px solid var(--border);" onclick="loginAs('customer')">
+          <div style="width:48px; height:48px; background:#f0f0f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">👤</div>
+          <div>
+            <h4 data-i18n="login_cust" style="margin:0 0 4px 0; font-size:16px;">Mijoz sifatida</h4>
+            <p style="margin:0; font-size:13px; color:var(--secondary-text);">Buyurtma berish va kuzatish</p>
+          </div>
+        </button>
+
+        <button class="card w-full" style="display:flex; align-items:center; gap:16px; cursor:pointer; text-align:left; border:1px solid var(--border);" onclick="loginAs('worker')">
+          <div style="width:48px; height:48px; background:#fef3c7; color:#d97706; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">🛠️</div>
+          <div>
+            <h4 data-i18n="login_work" style="margin:0 0 4px 0; font-size:16px;">Ishchi sifatida</h4>
+            <p style="margin:0; font-size:13px; color:var(--secondary-text);">Buyurtmalarni qabul qilish</p>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="modal-booking" class="modal hidden" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 data-i18n="book_title">Buyurtma berish</h2>
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="booking-form" onsubmit="submitBooking(event)">
+          <input type="hidden" id="book-worker-id">
+          
+          <label data-i18n="book_service">Xizmat turi</label>
+          <select id="book-service" required></select>
+          
+          <div class="split">
+            <div>
+              <label data-i18n="book_name">Ismingiz</label>
+              <input type="text" id="book-name" required data-i18n="book_name_pl" placeholder="Sardor (Demo)" value="Sardor (Demo)">
+            </div>
+            <div>
+              <label data-i18n="book_phone">Telefon raqamingiz</label>
+              <input type="tel" id="book-phone" placeholder="+998 90 123 45 67" value="+998 90 123 45 67" required>
+            </div>
+          </div>
+          
+          <label data-i18n="book_district">Tuman</label>
+          <select id="book-district" required></select>
+          
+          <label data-i18n="book_address">Aniq manzil</label>
+          <input type="text" id="book-address" required data-i18n="book_address_pl" placeholder="Amir Temur ko'chasi, 15-uy" value="Amir Temur ko'chasi, 15-uy">
+          
+          <label data-i18n="book_desc">Batafsil ma'lumot (ixtiyoriy)</label>
+          <textarea id="book-desc" rows="3" data-i18n="book_desc_pl" placeholder="Nima ish qilinishi kerakligini yozing..."></textarea>
+          
+          <div class="split">
+            <div>
+              <label data-i18n="book_date">Sana</label>
+              <input type="date" id="book-date" required>
+            </div>
+            <div>
+              <label data-i18n="book_time">Vaqt</label>
+              <input type="time" id="book-time" required>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary w-full" data-i18n="book_submit" style="margin-top:16px; height:52px; font-size:16px;">Buyurtmani tasdiqlash</button>
+          <p data-i18n="book_warn" style="font-size:13px; color:var(--secondary-text); text-align:center; margin-top:16px; background:#f9f9f9; padding:12px; border-radius:8px;">
+            Demo ogohlantirish: Bu haqiqiy buyurtma emas. Ma'lumotlaringiz xavfsiz.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Worker Profile Modal -->
+    <div id="modal-worker" class="modal hidden" onclick="event.stopPropagation()"></div>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // 1. Dictionaries
+    const i18n = {
+      uz: {
+        nav_home: "Bosh sahifa", nav_how: "Qanday ishlaydi", nav_workers: "Ishchilar portfoliosi",
+        nav_login: "Tizimga kirish", nav_logout: "Chiqish", nav_dash: "Mening kabinetim",
+        cta_call: "Ishchi chaqirish", cta_work: "Ishchilarni ko'rish", search_btn: "Qidirish",
+        hero_title: "Ishingiz bor. Ishchi kerak. Mardex bor.",
+        hero_desc: "Kunlik mardikorlar va malakali ustalarni uyingizga bir necha bosishda chaqiring. Oson, ishonchli va tez.",
+        services_title: "Mashhur xizmatlar", how_it_works: "Mardex qanday ishlaydi?",
+        step1_title: "Ishchini tanlang", step1_desc: "Kerakli xizmat turini va tumanni tanlab, reytingi baland ishchini toping.",
+        step2_title: "Buyurtma bering", step2_desc: "Vaqt, manzil va ish tafsilotlarini kiritib, tasdiqlash uchun yuboring.",
+        step3_title: "Ish qabul qilinadi", step3_desc: "Ishchi buyurtmani tasdiqlaydi va belgilangan vaqtda yetib keladi.",
+        cat_labor: "Kunlik mardikorlar", cat_moving: "Yuk tashish va ko‘chirish", cat_plumbing: "Santexnika",
+        cat_electric: "Elektr ishlari", cat_painting: "Bo‘yoqchilik (Malyar)", cat_furniture: "Mebel yig‘ish",
+        cat_cleaning: "Tozalash xizmati", cat_other: "Boshqa xizmatlar", cat_all: "Barcha xizmatlar",
+        dist_all: "Barcha tumanlar", dist_chilonzor: "Chilonzor", dist_yunusobod: "Yunusobod",
+        dist_mirzoulugbek: "Mirzo Ulugbek", dist_olmazor: "Olmazor", dist_yakkasaroy: "Yakkasaroy",
+        dist_yashnobod: "Yashnobod", dist_mirobod: "Mirobod", dist_sergeli: "Sergeli",
+        verif_pending: "Shaxs tasdiqlanmoqda", verif_title: "Tasdiqlangan mutaxassis", available: "Bo'sh", unavailable: "Band",
+        years_exp: "yil tajriba", unit_kun: "kun", unit_soat: "soat", unit_qatnov: "qatnov",
+        view_profile: "Profilni ko‘rish",
+        book_title: "Buyurtma berish", book_service: "Xizmat", book_name: "Ismingiz", book_phone: "Telefon raqamingiz",
+        book_district: "Tuman", book_address: "Aniq manzil", book_desc: "Batafsil ma'lumot (ixtiyoriy)", book_date: "Sana",
+        book_time: "Vaqt", book_submit: "Buyurtmani tasdiqlash",
+        book_name_pl: "Sardor (Demo)", book_address_pl: "Amir Temur ko'chasi, 15-uy", book_desc_pl: "Nima ish qilinishi kerakligini yozing...",
+        stat_pending: "Kutilmoqda", stat_accepted: "Qabul qilindi", stat_ontheway: "Ishchi yo‘lda",
+        stat_inprogress: "Ish bajarilmoqda", stat_done: "Bajarildi", stat_cancelled: "Bekor qilindi",
+        login_title: "Tizimga kirish (Demo)", login_cust: "Mijoz sifatida", login_work: "Ishchi sifatida (Demo)",
+        dash_cust_title: "Mijoz Kabineti", dash_work_title: "Ishchi Kabineti (Demo)",
+        dash_my_bookings: "Mening buyurtmalarim", dash_incoming: "Kelib tushgan buyurtmalar",
+        btn_cancel: "Bekor qilish", btn_accept: "Qabul qilish", btn_reject: "Rad etish",
+        btn_ontheway: "Yo'lga chiqish", btn_inprogress: "Ishni boshlash", btn_done: "Tugatish",
+        filter_avail: "Faqat bo'shlar", sort_rating: "Reyting (Yuqori)", sort_price_asc: "Narx (Arzon)", sort_price_desc: "Narx (Qimmat)",
+        no_bookings: "Hozircha buyurtmalar yo'q", no_workers: "Ushbu filtrlar bo'yicha ishchilar topilmadi",
+        filter_cat_label: "Kategoriya", filter_dist_label: "Tuman", filter_sort_label: "Saralash", filter_name_label: "Qidiruv",
+        login_sim: "Qaysi foydalanuvchi sifatida davom etishni xohlaysiz?",
+        footer_rights: "Barcha huquqlar himoyalangan. © 2026",
+        footer_links: "Platforma", footer_contact: "Aloqa (Demo)",
+        footer_desc: "Diqqat: Ushbu loyiha investorlar uchun interaktiv demo prototip hisoblanadi. Ma'lumotlar saqlanmaydi.",
+        worker_profile: "Mutaxassis profili", modal_district: "Manzil:", modal_rating: "Reyting:", modal_price: "Xizmat narxi:",
+        cust_name_demo: "Sardor (Investor Demo)", book_warn: "Demo ogohlantirish: Bu haqiqiy buyurtma emas. Ma'lumotlaringiz xavfsiz.",
+        stat_title: "Status:", ref_title: "Buyurtma ID:", worker_name_demo: "Alisher T. (Demo)", clear_filters: "Tozalash", search_placeholder: "Ism yoki xizmat turi..."
+      },
+      ru: {
+        nav_home: "Главная", nav_how: "Как это работает", nav_workers: "Портфолио работников",
+        nav_login: "Войти", nav_logout: "Выйти", nav_dash: "Мой кабинет",
+        cta_call: "Вызвать мастера", cta_work: "Смотреть работников", search_btn: "Найти",
+        hero_title: "Есть работа. Нужен мастер. Есть Mardex.",
+        hero_desc: "Вызывайте разнорабочих и квалифицированных мастеров на дом в несколько кликов. Быстро и надежно.",
+        services_title: "Популярные услуги", how_it_works: "Как работает Mardex?",
+        step1_title: "Выберите мастера", step1_desc: "Выберите услугу и район, чтобы найти специалиста с высоким рейтингом.",
+        step2_title: "Оформите заказ", step2_desc: "Укажите время, адрес и детали работы для подтверждения.",
+        step3_title: "Заказ принят", step3_desc: "Мастер подтвердит заказ и приедет в назначенное время.",
+        cat_labor: "Разнорабочие", cat_moving: "Грузоперевозки", cat_plumbing: "Сантехника",
+        cat_electric: "Электрика", cat_painting: "Малярные работы", cat_furniture: "Сборка мебели",
+        cat_cleaning: "Клининг", cat_other: "Другие услуги", cat_all: "Все услуги",
+        dist_all: "Все районы", dist_chilonzor: "Чиланзар", dist_yunusobod: "Юнусабад",
+        dist_mirzoulugbek: "Мирзо-Улугбек", dist_olmazor: "Алмазар", dist_yakkasaroy: "Яккасарай",
+        dist_yashnobod: "Яшнабад", dist_mirobod: "Мирабад", dist_sergeli: "Сергели",
+        verif_pending: "Проверка", verif_title: "Проверенный специалист", available: "Свободен", unavailable: "Занят",
+        years_exp: "лет опыта", unit_kun: "день", unit_soat: "час", unit_qatnov: "рейс",
+        view_profile: "Профиль",
+        book_title: "Оформить заказ", book_service: "Услуга", book_name: "Ваше имя", book_phone: "Номер телефона",
+        book_district: "Район", book_address: "Точный адрес", book_desc: "Детали (необязательно)", book_date: "Дата",
+        book_time: "Время", book_submit: "Подтвердить заказ",
+        book_name_pl: "Сардор (Демо)", book_address_pl: "Улица Амира Темура, 15", book_desc_pl: "Опишите, что нужно сделать...",
+        stat_pending: "Ожидается", stat_accepted: "Принят", stat_ontheway: "В пути",
+        stat_inprogress: "В процессе", stat_done: "Завершён", stat_cancelled: "Отменён",
+        login_title: "Вход в систему (Демо)", login_cust: "Как клиент", login_work: "Как мастер (Демо)",
+        dash_cust_title: "Кабинет Клиента", dash_work_title: "Кабинет Мастера (Демо)",
+        dash_my_bookings: "Мои заказы", dash_incoming: "Входящие заказы",
+        btn_cancel: "Отменить", btn_accept: "Принять", btn_reject: "Отклонить",
+        btn_ontheway: "Выехать", btn_inprogress: "Начать работу", btn_done: "Завершить",
+        filter_avail: "Только свободные", sort_rating: "Рейтинг (Высокий)", sort_price_asc: "Цена (Дешевые)", sort_price_desc: "Цена (Дорогие)",
+        no_bookings: "Пока нет заказов", no_workers: "По этим фильтрам мастера не найдены",
+        filter_cat_label: "Категория", filter_dist_label: "Район", filter_sort_label: "Сортировка", filter_name_label: "Поиск",
+        login_sim: "Под кем вы хотите продолжить?",
+        footer_rights: "Все права защищены. © 2026",
+        footer_links: "Платформа", footer_contact: "Контакты (Демо)",
+        footer_desc: "Внимание: Этот проект является интерактивным прототипом для инвесторов. Данные не сохраняются.",
+        worker_profile: "Профиль специалиста", modal_district: "Адрес:", modal_rating: "Рейтинг:", modal_price: "Цена:",
+        cust_name_demo: "Сардор (Инвестор Демо)", book_warn: "Предупреждение: Это не настоящий заказ. Ваши данные в безопасности.",
+        stat_title: "Статус:", ref_title: "ID заказа:", worker_name_demo: "Алишер Т. (Демо)", clear_filters: "Сбросить", search_placeholder: "Имя или услуга..."
+      },
+      en: {
+        nav_home: "Home", nav_how: "How it works", nav_workers: "Worker Portfolio",
+        nav_login: "Login", nav_logout: "Logout", nav_dash: "My Dashboard",
+        cta_call: "Book a Worker", cta_work: "View Workers", search_btn: "Search",
+        hero_title: "Have a job? Need a worker? Mardex is here.",
+        hero_desc: "Call daily laborers and skilled professionals to your home in just a few clicks. Easy, reliable, fast.",
+        services_title: "Popular Services", how_it_works: "How Mardex Works",
+        step1_title: "Choose a professional", step1_desc: "Select the service and district to find top-rated workers.",
+        step2_title: "Place your order", step2_desc: "Enter the time, address, and details to submit your request.",
+        step3_title: "Job accepted", step3_desc: "The worker confirms and arrives at the scheduled time.",
+        cat_labor: "Daily Laborers", cat_moving: "Moving & Transport", cat_plumbing: "Plumbing",
+        cat_electric: "Electrical Work", cat_painting: "Painting", cat_furniture: "Furniture Assembly",
+        cat_cleaning: "Cleaning Services", cat_other: "Other Services", cat_all: "All Services",
+        dist_all: "All Districts", dist_chilonzor: "Chilonzor", dist_yunusobod: "Yunusobod",
+        dist_mirzoulugbek: "Mirzo Ulugbek", dist_olmazor: "Olmazor", dist_yakkasaroy: "Yakkasaroy",
+        dist_yashnobod: "Yashnobod", dist_mirobod: "Mirobod", dist_sergeli: "Sergeli",
+        verif_pending: "Verification pending", verif_title: "Verified Professional", available: "Available", unavailable: "Busy",
+        years_exp: "years exp", unit_kun: "day", unit_soat: "hour", unit_qatnov: "trip",
+        view_profile: "View Profile",
+        book_title: "Book Service", book_service: "Service", book_name: "Your Name", book_phone: "Phone Number",
+        book_district: "District", book_address: "Exact Address", book_desc: "Details (Optional)", book_date: "Date",
+        book_time: "Time", book_submit: "Confirm Booking",
+        book_name_pl: "Sardor (Demo)", book_address_pl: "Amir Temur Ave, 15", book_desc_pl: "Describe what needs to be done...",
+        stat_pending: "Pending", stat_accepted: "Accepted", stat_ontheway: "On the way",
+        stat_inprogress: "In progress", stat_done: "Completed", stat_cancelled: "Cancelled",
+        login_title: "System Login (Demo)", login_cust: "As Customer", login_work: "As Worker (Demo)",
+        dash_cust_title: "Customer Dashboard", dash_work_title: "Worker Dashboard (Demo)",
+        dash_my_bookings: "My Bookings", dash_incoming: "Incoming Requests",
+        btn_cancel: "Cancel", btn_accept: "Accept", btn_reject: "Reject",
+        btn_ontheway: "Depart", btn_inprogress: "Start Work", btn_done: "Finish",
+        filter_avail: "Available only", sort_rating: "Rating (High)", sort_price_asc: "Price (Low)", sort_price_desc: "Price (High)",
+        no_bookings: "No bookings yet", no_workers: "No workers found for these filters",
+        filter_cat_label: "Category", filter_dist_label: "District", filter_sort_label: "Sort by", filter_name_label: "Search",
+        login_sim: "How would you like to continue?",
+        footer_rights: "All rights reserved. © 2026",
+        footer_links: "Platform", footer_contact: "Contact (Demo)",
+        footer_desc: "Notice: This project is an interactive investor demo prototype. Data is not permanently saved.",
+        worker_profile: "Professional Profile", modal_district: "Location:", modal_rating: "Rating:", modal_price: "Price:",
+        cust_name_demo: "Sardor (Investor Demo)", book_warn: "Demo warning: This is not a real booking. Your data is safe.",
+        stat_title: "Status:", ref_title: "Order ID:", worker_name_demo: "Alisher T. (Demo)", clear_filters: "Clear", search_placeholder: "Name or service..."
+      }
+    };
+
+    function t(key) { return i18n[currentLang][key] || key; }
+
+    // 2. State & Mock Data
+    let currentLang = localStorage.getItem('mardex_lang') || 'uz';
+    let currentView = 'home';
+    let userRole = localStorage.getItem('mardex_role') || 'guest';
+
+    const initialWorkers = [
+      { id: 'w1', name: 'Alisher T.', category: 'labor', exp: 5, district: 'chilonzor', price: '100000', unit: 'kun', rating: 4.9, available: true, verified: true, img: 'https://images.unsplash.com/photo-1543269664-56d93c1b41a6?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w2', name: 'Rustam Q.', category: 'plumbing', exp: 8, district: 'yunusobod', price: '150000', unit: 'soat', rating: 4.8, available: true, verified: true, img: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w3', name: 'Jamshid B.', category: 'electric', exp: 3, district: 'mirzoulugbek', price: '120000', unit: 'soat', rating: 4.5, available: false, verified: false, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w4', name: 'Olim M.', category: 'moving', exp: 10, district: 'olmazor', price: '200000', unit: 'qatnov', rating: 5.0, available: true, verified: true, img: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w5', name: 'Jahongir E.', category: 'cleaning', exp: 2, district: 'yakkasaroy', price: '80000', unit: 'kun', rating: 4.2, available: true, verified: false, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w6', name: 'Sardor K.', category: 'painting', exp: 6, district: 'yashnobod', price: '90000', unit: 'kun', rating: 4.7, available: true, verified: true, img: 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w7', name: 'Murod A.', category: 'furniture', exp: 4, district: 'mirobod', price: '150000', unit: 'soat', rating: 4.6, available: true, verified: true, img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150&h=150' },
+      { id: 'w8', name: 'Bekzod S.', category: 'labor', exp: 1, district: 'sergeli', price: '80000', unit: 'kun', rating: 4.0, available: true, verified: false, img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=150&h=150' }
+    ];
+
+    let workers = JSON.parse(localStorage.getItem('mardex_workers')) || initialWorkers;
+    let bookings = JSON.parse(localStorage.getItem('mardex_bookings')) || [];
+
+    const categoriesList = ['labor', 'moving', 'plumbing', 'electric', 'painting', 'furniture', 'cleaning', 'other'];
+    const districtsList = ['chilonzor', 'yunusobod', 'mirzoulugbek', 'olmazor', 'yakkasaroy', 'yashnobod', 'mirobod', 'sergeli'];
+
+    // 3. Core Functions
+    function populateDropdowns() {
+      const catOptions = `<option value="all">${t('cat_all')}</option>` + categoriesList.map(c => `<option value="${c}">${t('cat_'+c)}</option>`).join('');
+      const distOptions = `<option value="all">${t('dist_all')}</option>` + districtsList.map(d => `<option value="${d}">${t('dist_'+d)}</option>`).join('');
+      const pureCats = categoriesList.map(c => `<option value="${c}">${t('cat_'+c)}</option>`).join('');
+      const pureDists = districtsList.map(d => `<option value="${d}">${t('dist_'+d)}</option>`).join('');
+      
+      document.getElementById('search-cat').innerHTML = catOptions;
+      document.getElementById('search-dist').innerHTML = distOptions;
+      document.getElementById('filter-cat').innerHTML = catOptions;
+      document.getElementById('filter-dist').innerHTML = distOptions;
+      document.getElementById('book-service').innerHTML = pureCats;
+      document.getElementById('book-district').innerHTML = pureDists;
+    }
+
+    function translateAll() {
+      const catVal = document.getElementById('search-cat').value;
+      const distVal = document.getElementById('search-dist').value;
+      const filterCatVal = document.getElementById('filter-cat').value;
+      const filterDistVal = document.getElementById('filter-dist').value;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[currentLang][key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            if(el.type === 'text' || el.type === 'tel' || el.type === 'number' || el.tagName === 'TEXTAREA') {
+              el.placeholder = i18n[currentLang][key];
+            } else if(el.type === 'button' || el.type === 'submit') {
+              el.value = i18n[currentLang][key];
+            }
+          } else {
+            el.innerHTML = i18n[currentLang][key];
+          }
+        }
+      });
+      populateDropdowns();
+
+      if(catVal) document.getElementById('search-cat').value = catVal;
+      if(distVal) document.getElementById('search-dist').value = distVal;
+      if(filterCatVal) document.getElementById('filter-cat').value = filterCatVal;
+      if(filterDistVal) document.getElementById('filter-dist').value = filterDistVal;
+
+      renderCurrentView();
+    }
+
+    function changeLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('mardex_lang', lang);
+      translateAll();
+    }
+
+    function navigate(event, view) {
+      if(event) event.preventDefault();
+      document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+      document.getElementById(`view-${view}`).classList.add('active');
+      currentView = view;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      renderCurrentView();
+    }
+
+    function renderCurrentView() {
+      if (currentView === 'home') { renderServices(); }
+      else if (currentView === 'workers') { applyFilters(); }
+      else if (currentView === 'customer-dash') { renderCustomerDash(); }
+      else if (currentView === 'worker-dash') { renderWorkerDash(); }
+    }
+
+    function openCategory(event, cat) {
+      if(event) event.preventDefault();
+      document.getElementById('filter-name').value = '';
+      document.getElementById('filter-dist').value = 'all';
+      document.getElementById('filter-sort').value = 'rating';
+      document.getElementById('filter-avail').checked = false;
+      document.getElementById('filter-cat').value = cat;
+      navigate(null, 'workers');
+    }
+
+    function doSearch() {
+      document.getElementById('filter-name').value = document.getElementById('search-name').value;
+      document.getElementById('filter-cat').value = document.getElementById('search-cat').value;
+      document.getElementById('filter-dist').value = document.getElementById('search-dist').value;
+      navigate(null, 'workers');
+    }
+
+    function clearFilters() {
+      document.getElementById('filter-name').value = '';
+      document.getElementById('filter-cat').value = 'all';
+      document.getElementById('filter-dist').value = 'all';
+      document.getElementById('filter-sort').value = 'rating';
+      document.getElementById('filter-avail').checked = false;
+      document.getElementById('search-name').value = '';
+      document.getElementById('search-cat').value = 'all';
+      document.getElementById('search-dist').value = 'all';
+      applyFilters();
+    }
+
+    // 4. Rendering logic
+    function renderServices() {
+      const container = document.getElementById('services-grid');
+      const icons = { labor:'💪', moving:'🚚', plumbing:'🔧', electric:'⚡', painting:'🎨', furniture:'🪑', cleaning:'🧹', other:'🛠️' };
+      container.innerHTML = categoriesList.map(c => `
+        <a href="#" class="card service-card" onclick="openCategory(event, '${c}')">
+          <div class="service-icon">${icons[c]}</div>
+          <h3>${t('cat_'+c)}</h3>
+        </a>
+      `).join('');
+    }
+
+    function applyFilters() {
+      const name = document.getElementById('filter-name').value.toLowerCase().trim();
+      const cat = document.getElementById('filter-cat').value;
+      const dist = document.getElementById('filter-dist').value;
+      const sort = document.getElementById('filter-sort').value;
+      const avail = document.getElementById('filter-avail').checked;
+      
+      let filtered = [...workers];
+      
+      if(name) {
+        filtered = filtered.filter(w => {
+          const wName = w.name.toLowerCase();
+          const wCat = t('cat_' + w.category).toLowerCase();
+          return wName.includes(name) || wCat.includes(name);
+        });
+      }
+      
+      if(cat !== 'all') filtered = filtered.filter(w => w.category === cat);
+      if(dist !== 'all') filtered = filtered.filter(w => w.district === dist);
+      if(avail) filtered = filtered.filter(w => w.available);
+      
+      if(sort === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+      if(sort === 'price_asc') filtered.sort((a,b) => parseInt(a.price) - parseInt(b.price));
+      if(sort === 'price_desc') filtered.sort((a,b) => parseInt(b.price) - parseInt(a.price));
+      
+      renderWorkerCards(filtered, 'all-workers-grid');
+    }
+
+    function renderWorkerCards(list, containerId) {
+      const container = document.getElementById(containerId);
+      if(list.length === 0) {
+        container.innerHTML = `<div style="padding:40px; text-align:center; background:#fff; border-radius:24px; border:1px solid var(--border); grid-column:1/-1;">
+          <h3 style="margin-bottom:8px; font-size:20px;">${t('no_workers')}</h3>
+          <button class="btn btn-outline" onclick="clearFilters()" style="margin-top:16px;">${t('clear_filters')}</button>
+        </div>`;
+        return;
+      }
+      container.innerHTML = list.map((w, index) => `
+        <div class="card worker-card animate-up" style="animation-delay: ${index * 0.05}s;">
+          <div class="demo-badge">Demo</div>
+          <div class="worker-header">
+            <img src="${w.img}" alt="${w.name}" class="worker-avatar">
+            <div class="worker-info">
+              <h3>
+                ${w.name} 
+                ${w.verified ? `<span style="color:#10B981; font-size:16px; margin-left:4px;" title="${t('verif_title')}">✓</span>` : `<span style="background:#FEF3C7; color:#D97706; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:700; margin-left:4px;">${t('verif_pending')}</span>`}
+              </h3>
+              <p>${t('cat_' + w.category)}</p>
+            </div>
+          </div>
+          
+          <div class="worker-stats">
+            <div class="stat-row">
+              <span class="stat-label">Reyting</span>
+              <span class="stat-value">⭐ ${w.rating}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Tajriba</span>
+              <span class="stat-value">${w.exp} ${t('years_exp')}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Tuman</span>
+              <span class="stat-value">${t('dist_'+w.district)}</span>
+            </div>
+            <div class="stat-row" style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+              <span class="stat-label">Narx</span>
+              <span class="stat-value" style="color:var(--accent);">💰 ${w.price} / ${t('unit_'+w.unit)}</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:center; margin-bottom:16px;">
+            <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:20px; font-size:13px; font-weight:600; background:${w.available ? '#ecfdf5' : '#fef2f2'}; color:${w.available ? '#059669' : '#dc2626'};">
+              <span style="display:block; width:8px; height:8px; border-radius:50%; background:${w.available ? '#10b981' : '#ef4444'};"></span>
+              ${w.available ? t('available') : t('unavailable')}
+            </span>
+          </div>
+
+          <div style="display:flex; gap:12px;">
+            <button class="btn btn-outline" style="flex:1;" onclick="viewProfile('${w.id}')">${t('view_profile')}</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="openBooking('${w.id}')" ${!w.available?'disabled':''}>${t('cta_call')}</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 5. Modals & Actions
+    function openModal(id) {
+      const overlay = document.getElementById('modal-overlay');
+      const modal = document.getElementById(id);
+      overlay.classList.remove('hidden');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeAllModals() {
+      document.getElementById('modal-overlay').classList.add('hidden');
+      document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
+      document.body.style.overflow = '';
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+      document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('hidden') ? '' : 'hidden';
+    }
+
+    function openLogin() { openModal('modal-login'); }
+
+    function viewProfile(id) {
+      const w = workers.find(x => x.id === id);
+      if(!w) return;
+      const modal = document.getElementById('modal-worker');
+      modal.innerHTML = `
+        <div class="modal-header">
+          <h2>${t('worker_profile')}</h2>
+          <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        </div>
+        <div class="modal-body" style="text-align:center;">
+          <div style="position:relative; display:inline-block; margin-bottom:16px;">
+            <img src="${w.img}" alt="${w.name}" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #fff; box-shadow:var(--shadow-md);">
+            ${w.verified ? `<div style="position:absolute; bottom:4px; right:4px; background:#10B981; color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:3px solid #fff; font-size:16px;">✓</div>` : ''}
+          </div>
+          <h3 style="margin:0 0 4px 0; font-size:24px;">${w.name}</h3>
+          <p style="color:var(--secondary-text); margin:0 0 24px 0; font-size:16px;">${t('cat_'+w.category)} • ${w.exp} ${t('years_exp')}</p>
+          
+          <div style="background:#f9f9f9; padding:24px; border-radius:16px; margin-bottom:32px; text-align:left; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+              <span style="color:var(--secondary-text);">${t('modal_district')}</span> <strong>${t('dist_'+w.district)}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+              <span style="color:var(--secondary-text);">${t('modal_rating')}</span> <strong>⭐ ${w.rating}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--secondary-text);">${t('modal_price')}</span> <strong style="color:var(--accent); font-size:18px;">${w.price} / ${t('unit_'+w.unit)}</strong>
+            </div>
+          </div>
+          <button class="btn btn-primary w-full" style="height:52px; font-size:16px;" onclick="closeAllModals(); openBooking('${w.id}')" ${!w.available?'disabled':''}>${t('cta_call')}</button>
+        </div>
+      `;
+      openModal('modal-worker');
+    }
+
+    // 6. Booking System
+    function openBooking(workerId = null) {
+      if(workerId) {
+        const w = workers.find(x => x.id === workerId);
+        if(w) {
+          document.getElementById('book-service').value = w.category;
+          document.getElementById('book-district').value = w.district;
+          document.getElementById('book-worker-id').value = w.id;
+        }
+      } else {
+        document.getElementById('book-worker-id').value = '';
+      }
+      // Auto-fill today's date for demo speed
+      document.getElementById('book-date').valueAsDate = new Date();
+      openModal('modal-booking');
+    }
+
+    function submitBooking(e) {
+      e.preventDefault();
+      const workerId = document.getElementById('book-worker-id').value || 'w1'; 
+      const newBooking = {
+        id: Math.floor(100000 + Math.random() * 900000).toString(),
+        workerId: workerId,
+        customerId: userRole === 'customer' ? 'c1' : 'guest',
+        service: document.getElementById('book-service').value,
+        customerName: document.getElementById('book-name').value,
+        phone: document.getElementById('book-phone').value,
+        district: document.getElementById('book-district').value,
+        address: document.getElementById('book-address').value,
+        desc: document.getElementById('book-desc').value,
+        date: document.getElementById('book-date').value,
+        time: document.getElementById('book-time').value,
+        status: 'pending'
+      };
+      
+      bookings.push(newBooking);
+      localStorage.setItem('mardex_bookings', JSON.stringify(bookings));
+      
+      alert(`✅ Buyurtma muvaffaqiyatli yuborildi!\n\nID: #${newBooking.id}\n\nInvestor Demo: Endi siz "Ishchi Kabineti"ga o'tib ushbu buyurtmani qabul qilishingiz mumkin.`);
+      closeAllModals();
+      document.getElementById('booking-form').reset();
+      
+      if(userRole === 'guest') loginAs('customer');
+      else if(userRole === 'customer') navigate(null, 'customer-dash');
+    }
+
+    // 7. Auth & Dashboards
+    function updateAuthUI() {
+      const isGuest = userRole === 'guest';
+      ['btn-login', 'mob-btn-login'].forEach(id => document.getElementById(id).classList.toggle('hidden', !isGuest));
+      ['btn-dash', 'mob-btn-dash'].forEach(id => document.getElementById(id).classList.toggle('hidden', isGuest));
+      ['btn-logout', 'mob-btn-logout'].forEach(id => document.getElementById(id).classList.toggle('hidden', isGuest));
+    }
+
+    function loginAs(role) {
+      userRole = role;
+      localStorage.setItem('mardex_role', role);
+      updateAuthUI();
+      closeAllModals();
+      navigate(null, role === 'customer' ? 'customer-dash' : 'worker-dash');
+    }
+
+    function logout() {
+      userRole = 'guest';
+      localStorage.removeItem('mardex_role');
+      updateAuthUI();
+      navigate(null, 'home');
+    }
+
+    function openDash() { navigate(null, userRole === 'customer' ? 'customer-dash' : 'worker-dash'); }
+
+    function getStatusBadge(status) {
+      const cls = 'status-' + status;
+      return `<span class="status-badge ${cls}">${t('stat_'+status)}</span>`;
+    }
+
+    function renderCustomerDash() {
+      const container = document.getElementById('customer-bookings-list');
+      const myBookings = bookings.filter(b => b.customerId === 'c1' || b.customerId === 'guest');
+      if(myBookings.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:40px;"><p style="color:var(--secondary-text); font-size:16px;">${t('no_bookings')}</p></div>`; 
+        return;
+      }
+      container.innerHTML = [...myBookings].reverse().map(b => `
+        <div class="card animate-up" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding:24px;">
+          <div>
+            <p style="font-size:13px; color:var(--secondary-text); margin:0 0 8px 0; font-weight:600; letter-spacing:0.5px;">${t('ref_title')} #${b.id}</p>
+            <h4 style="margin:0 0 8px 0; font-size:18px;">${t('cat_'+b.service)}</h4>
+            <p style="margin:0 0 12px 0; font-size:15px; color:var(--secondary-text);">📅 ${b.date} 🕒 ${b.time}</p>
+            ${getStatusBadge(b.status)}
+          </div>
+          <div>
+            ${b.status === 'pending' ? `<button class="btn btn-outline" style="color:#DC2626; border-color:#DC2626;" onclick="updateStatus('${b.id}', 'cancelled')">${t('btn_cancel')}</button>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderWorkerDash() {
+      const w = workers.find(x => x.id === 'w1');
+      if(w) {
+        document.getElementById('worker-avail-toggle').checked = w.available;
+        document.getElementById('worker-status-text').textContent = w.available ? t('available') : t('unavailable');
+        document.getElementById('worker-status-text').style.color = w.available ? '#10B981' : '#666';
+      }
+      const container = document.getElementById('worker-bookings-list');
+      const myBookings = bookings.filter(b => b.workerId === 'w1');
+      if(myBookings.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:40px;"><p style="color:var(--secondary-text); font-size:16px;">${t('no_bookings')}</p></div>`; 
+        return;
+      }
+      container.innerHTML = [...myBookings].reverse().map(b => {
+        let actions = '';
+        if(b.status === 'pending') {
+          actions = `<button class="btn btn-primary" onclick="updateStatus('${b.id}', 'accepted')">${t('btn_accept')}</button>
+                     <button class="btn btn-outline" style="color:#DC2626; border-color:#DC2626;" onclick="updateStatus('${b.id}', 'cancelled')">${t('btn_reject')}</button>`;
+        } else if(b.status === 'accepted') {
+          actions = `<button class="btn btn-primary" style="background:#4338CA;" onclick="updateStatus('${b.id}', 'ontheway')">${t('btn_ontheway')}</button>`;
+        } else if(b.status === 'ontheway') {
+          actions = `<button class="btn btn-primary" style="background:#6D28D9;" onclick="updateStatus('${b.id}', 'inprogress')">${t('btn_inprogress')}</button>`;
+        } else if(b.status === 'inprogress') {
+          actions = `<button class="btn btn-primary" style="background:#059669;" onclick="updateStatus('${b.id}', 'done')">${t('btn_done')}</button>`;
+        }
+        return `
+          <div class="card animate-up" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding:24px;">
+            <div style="flex:1; min-width:300px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <p style="font-size:13px; color:var(--secondary-text); margin:0 0 8px 0; font-weight:600;">${t('ref_title')} #${b.id}</p>
+                ${getStatusBadge(b.status)}
+              </div>
+              <h4 style="margin:8px 0; font-size:18px;">Mijoz: ${b.customerName}</h4>
+              <p style="margin:0 0 8px 0; font-size:15px;">📞 ${b.phone}</p>
+              <p style="margin:0 0 8px 0; font-size:15px; color:var(--secondary-text);">📅 ${b.date} 🕒 ${b.time}</p>
+              <p style="margin:0 0 8px 0; font-size:15px; font-weight:600;">📍 ${t('dist_'+b.district)}, ${b.address}</p>
+              ${b.desc ? `<p style="margin:12px 0 0 0; padding:12px; background:#f9f9f9; border-radius:8px; font-size:14px; color:#555;">${b.desc}</p>` : ''}
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px; min-width:140px;">${actions}</div>
+          </div>`;
+      }).join('');
+    }
+
+    function toggleWorkerAvailability(isAvail) {
+      const w = workers.find(x => x.id === 'w1');
+      if(w) {
+        w.available = isAvail;
+        localStorage.setItem('mardex_workers', JSON.stringify(workers));
+        document.getElementById('worker-status-text').textContent = isAvail ? t('available') : t('unavailable');
+        document.getElementById('worker-status-text').style.color = isAvail ? '#10B981' : '#666';
+      }
+    }
+
+    function updateStatus(id, newStatus) {
+      const b = bookings.find(x => x.id === id);
+      if(b) {
+        b.status = newStatus;
+        localStorage.setItem('mardex_bookings', JSON.stringify(bookings));
+        if(currentView === 'worker-dash') renderWorkerDash();
+        if(currentView === 'customer-dash') renderCustomerDash();
+      }
+    }
+
+    function resetDemo() {
+      if(confirm("Barcha demo ma'lumotlar tozalanadi. Ishonchingiz komilmi? (All demo data will be reset)")) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
+
+    // Init
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!localStorage.getItem('mardex_workers')) localStorage.setItem('mardex_workers', JSON.stringify(initialWorkers));
+      document.getElementById('lang-select').value = currentLang;
+      updateAuthUI();
+      translateAll();
+    });
+  </script>
+</body>
+</html>
